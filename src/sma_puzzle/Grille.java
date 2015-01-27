@@ -13,13 +13,11 @@ import java.util.ArrayList;
  * @author Epulapp
  */
 public class Grille {
+    
     private int taille;
     private Agent[][] grille;
     private ArrayList<Agent> listAgents;
-    
-    public Grille(){
-        
-    }
+
     public Grille(int t,ArrayList<Agent> la){
         taille = t;
         listAgents = la;
@@ -31,7 +29,11 @@ public class Grille {
         }
         
         for(Agent a : la){
-            grille[a.getPosition().getX()][a.getPosition().getY()] = a;
+            if (grille[a.getPosition().getX()][a.getPosition().getY()] == null) {
+                grille[a.getPosition().getX()][a.getPosition().getY()] = a;
+            }
         }
-    }
+    }//Grille()
+    
+    
 }
