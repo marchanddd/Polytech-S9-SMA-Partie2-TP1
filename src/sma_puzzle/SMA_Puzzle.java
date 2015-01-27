@@ -41,7 +41,7 @@ public class SMA_Puzzle {
         
         for(Agent a:listAgents){
             a.setGrille(grille);
-            a.Run();
+            a.start();
         }
         
         
