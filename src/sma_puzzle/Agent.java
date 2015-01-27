@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author Epulapp
  */
 public class Agent extends Thread {
-    private int[][] position;
+    private int[][] position; // (ligne,colonne) à partir de 0 en haut à gauche
     private Grille grille; //grille
     private int[][] positionFinale;//position finale
     private ArrayList<Message> msgTraites;//liste des messages traités
