@@ -18,11 +18,13 @@ public class Agent extends Thread {
     private ArrayList<Message> msgEnvoyes;//liste des messages envoyés
     private ArrayList<ArrayList<Message>> mailBox;
     private ArrayList<Agent> listAgents;
+    private String nom;
     
     public Agent(){
         
     }
-    public Agent(Coordonnees p,Grille g, Coordonnees pf, ArrayList<ArrayList<Message>> mb){
+    public Agent(Coordonnees p,Grille g, Coordonnees pf, ArrayList<ArrayList<Message>> mb,String n){
+        nom = n;
         position = p;
         grille = g;
         positionFinale = pf;
@@ -32,7 +34,11 @@ public class Agent extends Thread {
     
    
     public void Run(){
-        
+         //tant que le puzzle n'est pas reconstitué on boucle 
+    //autre solution : gain individuel failbe si on est dans la bonne position et meilleur gain si tout le monde y est.
+    
+        //regarder si on est en position finale
+        //consulter ses messages et les traiter
     }
     
 
@@ -64,6 +70,10 @@ public class Agent extends Thread {
         return listAgents;
     }
     
+    public String getNom(){
+        return nom;
+    }
+    
     
     public void setPosition(Coordonnees position) {
         this.position = position;
@@ -89,14 +99,9 @@ public class Agent extends Thread {
         this.mailBox = mailBox;
     }
     
-    
-    
-    
-    //tant que le puzzle n'est pas reconstitué on boucle 
-    //autre solution : gain individuel failbe si on est dans la bonne position et meilleur gain si tout le monde y est.
-    
-        //regarder si on est en position finale
-        //consulter ses messages et les traiter
+    public void setNom(String n){
+        this.nom = n;
+    }
 
     public void setListAgents(ArrayList<Agent> listAgents) {
         this.listAgents = listAgents;
