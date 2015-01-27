@@ -16,35 +16,76 @@ public class Agent extends Thread {
     
     private String nom;
     
-    private Coordonnees position;
+    private Coordonnees position; // X ordonnée / Y abcisse en commencant par 0 en haut à gauche
     private Coordonnees positionFinale;
     private Grille grille; //grille
     
     private ArrayList<Message> msgEnvoyes;//liste des messages envoyés
-    private ArrayList<ArrayList<Message>> mailBox;
+    private ArrayList<Message> mailBox;
     private ArrayList<Message> msgTraites;//liste des messages traités
     
     private ArrayList<Agent> listAgents;
     
     
-    public Agent(Coordonnees p,Grille g, Coordonnees pf, ArrayList<ArrayList<Message>> mb,String n){
+    public Agent(Coordonnees p,Grille g, Coordonnees pf, String n){
         nom = n;
         position = p;
         grille = g;
         positionFinale = pf;
-        mailBox = mb;
+        mailBox = new ArrayList<Message>();
     }
     
    
     public void Run(){
-         //tant que le puzzle n'est pas reconstitué on boucle 
-    //autre solution : gain individuel failbe si on est dans la bonne position et meilleur gain si tout le monde y est.
-    
-        //regarder si on est en position finale
-        //consulter ses messages et les traiter
+        while (! grille.tousSatisfait()) {//tant que le puzzle n'est pas reconstitué on boucle 
+            //autre solution : gain individuel failbe si on est dans la bonne position et meilleur gain si tout le monde y est.
+            
+            //regarder si on est en position finale
+            if (! satisfait()) { 
+                Coordonnees cible = plusCourtChemin();
+                
+            }
+            
+            //consulter ses messages et les traiter
+            for (Message msg : mailBox) {
+                
+            }
+        
+        }
     }
     
+    private Coordonnees plusCourtChemin() {
+        Coordonnees cible = (Coordonnees) position.clone();
+        if (position.getX() != positionFinale.getX()) {
+            cible.setX(position.getX() + 
+                    (position.getX() < positionFinale.getX() ? 1 : -1));
+            // TODO verification place libre et réaction
+        } else if (position.getY() != positionFinale.getY()) {
+            cible.setY(position.getY() + 
+                    (position.getY() < positionFinale.getY() ? 1 : -1));
+        }
+        return cible;
+    }
     
+    /**
+     * Etats
+     */
+    
+    public boolean satisfait() {
+        if (this.getPosition().equals(this.getPositionFinale())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Fonctions Messages
+     */
+    
+    public void recevoirMessage(Message msg) {
+        mailBox.add(msg);
+    }
     
     /**
      * Getters / Setters
@@ -70,7 +111,7 @@ public class Agent extends Thread {
         return msgEnvoyes;
     }
 
-    public ArrayList<ArrayList<Message>> getMailBox() {
+    public ArrayList<Message> getMailBox() {
         return mailBox;
     }
 
@@ -103,7 +144,7 @@ public class Agent extends Thread {
         this.msgEnvoyes = msgEnvoyes;
     }
 
-    public void setMailBox(ArrayList<ArrayList<Message>> mailBox) {
+    public void setMailBox(ArrayList<Message> mailBox) {
         this.mailBox = mailBox;
     }
     

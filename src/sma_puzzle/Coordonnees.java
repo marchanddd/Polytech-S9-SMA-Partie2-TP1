@@ -20,6 +20,20 @@ public class Coordonnees {
         this.x = x;
         this.y = y;
     }
+    
+    
+    public boolean equals(Coordonnees c) {
+        if (c.getX() == x && c.getY() == y) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    
+    public Coordonnees clone() {
+        return new Coordonnees(x, y);
+    }
 
     
     public int getX() {

@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package sma_puzzle;
 
 import java.util.ArrayList;
@@ -17,6 +11,9 @@ public class Grille {
     private int taille;
     private Agent[][] grille;
     private ArrayList<Agent> listAgents;
+    
+    // Etat
+    private boolean tousSatisait;
 
     public Grille(int t,ArrayList<Agent> la){
         taille = t;
@@ -33,7 +30,45 @@ public class Grille {
                 grille[a.getPosition().getX()][a.getPosition().getY()] = a;
             }
         }
+        tousSatisfait();
     }//Grille()
+    
+    
+    /**
+     * Fait bouger un agent sur une case adjacente
+     * @param a
+     * @param cible
+     * @return Agent a
+     */
+    public synchronized Agent moveAgent(Agent a, Coordonnees cible) {
+        // Verifications
+            // TODO verification c'est à coté ?
+        if (grille[cible.getX()][cible.getY()] != null) {
+            return a;
+        }
+        
+        // Modification de la position
+        grille[a.getPosition().getX()][a.getPosition().getY()] = null;
+        grille[cible.getX()][cible.getY()] = a;
+        a.setPosition(cible);
+        
+        return a;
+    }
+    
+    /**
+     * Verifie que tous les agents soient satisfaits
+     */
+    public boolean tousSatisfait() {
+        tousSatisait = true;
+        for (Agent a : listAgents) {
+            if (! a.satisfait()) {
+                tousSatisait = false;
+                return tousSatisait;
+            }
+        }
+        return tousSatisait;
+    }
+    
     
     public void print(){
         System.out.println("_____________________________________");
