@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * @author Epulapp
  */
 public class Agent extends Thread {
-    private int[][] position; // (ligne,colonne) à partir de 0 en haut à gauche
+    private Coordinate2D position; // (ligne,colonne) à partir de 0 en haut à gauche
     private Grille grille; //grille
-    private int[][] positionFinale;//position finale
+    private Coordinate2D positionFinale;//position finale
     private ArrayList<Message> msgTraites;//liste des messages traités
     private ArrayList<Message> msgEnvoyes;//liste des messages envoyés
     private ArrayList<ArrayList<Message>> mailBox;
@@ -24,7 +24,7 @@ public class Agent extends Thread {
     public Agent(){
         
     }
-    public Agent(int[][] p,Grille g, int[][] pf, ArrayList<ArrayList<Message>> mb){
+    public Agent(Coordinate2D p,Grille g, Coordinate2D pf, ArrayList<ArrayList<Message>> mb){
         position = p;
         grille = g;
         positionFinale = pf;
@@ -38,7 +38,7 @@ public class Agent extends Thread {
     }
     
 
-    public int[][] getPosition() {
+    public Coordinate2D getPosition() {
         return position;
     }
 
@@ -46,7 +46,7 @@ public class Agent extends Thread {
         return grille;
     }
 
-    public int[][] getPositionFinale() {
+    public Coordinate2D getPositionFinale() {
         return positionFinale;
     }
 
