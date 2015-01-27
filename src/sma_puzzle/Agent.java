@@ -92,8 +92,13 @@ public class Agent extends Thread {
      */
     private void traiterMessages() {
         for (Message msg : mailBox) {
-            if(!msg.getPosition().equals(position)){
+            // Verification que l'émetteur a toujours besoin
+            
+            // Verification que l'on est toujours sur la position 
+            if (msg.getPosition().equals(position)) {
                 
+            } else {
+                mailBox.remove(msg);
             }
         }
     }
