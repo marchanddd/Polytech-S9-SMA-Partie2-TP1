@@ -44,8 +44,11 @@ public class Agent extends Thread {
             if (! satisfait()) { 
                 Coordonnees cible = plusCourtChemin();
                 if(grille.isLibre(cible)){
-                    
+                    grille.moveAgent(this, cible);
                 }else{
+                    Message msg = new Message(this, grille.getCase(cible), Message.ACTLANGAGE.REQUEST, Message.ACTION.BOUGER, cible);
+                    grille.getCase(cible).recevoirMessage(msg);
+                    msgEnvoyes.add(msg);
                     traiterMessages();
                 }
                 
@@ -89,7 +92,9 @@ public class Agent extends Thread {
      */
     private void traiterMessages() {
         for (Message msg : mailBox) {
-
+            if(!msg.getPosition().equals(position)){
+                
+            }
         }
     }
     
