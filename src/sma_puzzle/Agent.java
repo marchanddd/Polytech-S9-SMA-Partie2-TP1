@@ -44,11 +44,11 @@ public class Agent extends Thread {
         return positionFinale;
     }
 
-    public Message[] getMsgTraites() {
+    public ArrayList<Message> getMsgTraites() {
         return msgTraites;
     }
 
-    public Message[] getMsgEnvoyes() {
+    public ArrayList<Message> getMsgEnvoyes() {
         return msgEnvoyes;
     }
 
@@ -68,11 +68,11 @@ public class Agent extends Thread {
         this.positionFinale = positionFinale;
     }
 
-    public void setMsgTraites(Message[] msgTraites) {
+    public void setMsgTraites(ArrayList<Message> msgTraites) {
         this.msgTraites = msgTraites;
     }
 
-    public void setMsgEnvoyes(Message[] msgEnvoyes) {
+    public void setMsgEnvoyes(ArrayList<Message> msgEnvoyes) {
         this.msgEnvoyes = msgEnvoyes;
     }
 
