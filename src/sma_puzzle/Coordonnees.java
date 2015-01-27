@@ -10,13 +10,13 @@ package sma_puzzle;
  *
  * @author Epulapp
  */
-public class Coordinate2D {
+public class Coordonnees {
     
     private int x;
     private int y;
     
 
-    public Coordinate2D(int x, int y) {
+    public Coordonnees(int x, int y) {
         this.x = x;
         this.y = y;
     }

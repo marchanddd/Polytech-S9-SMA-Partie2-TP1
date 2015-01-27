@@ -13,10 +13,8 @@ import java.util.ArrayList;
  * @author Epulapp
  */
 public class Agent extends Thread {
-    private Coordinate2D position; // (ligne,colonne) à partir de 0 en haut à gauche
-    private Grille grille; //grille
-    private Coordinate2D positionFinale;//position finale
-    private ArrayList<Message> msgTraites;//liste des messages traités
+    private Coordonnees position;     private Grille grille; //grille
+    private Coordonnees positionFinale;    private ArrayList<Message> msgTraites;//liste des messages traités
     private ArrayList<Message> msgEnvoyes;//liste des messages envoyés
     private ArrayList<ArrayList<Message>> mailBox;
     private ArrayList<Agent> listAgents;
@@ -24,7 +22,7 @@ public class Agent extends Thread {
     public Agent(){
         
     }
-    public Agent(Coordinate2D p,Grille g, Coordinate2D pf, ArrayList<ArrayList<Message>> mb){
+    public Agent(Coordonnees p,Grille g, Coordonnees pf, ArrayList<ArrayList<Message>> mb){
         position = p;
         grille = g;
         positionFinale = pf;
@@ -38,7 +36,7 @@ public class Agent extends Thread {
     }
     
 
-    public Coordinate2D getPosition() {
+    public Coordonnees getPosition() {
         return position;
     }
 
@@ -46,7 +44,7 @@ public class Agent extends Thread {
         return grille;
     }
 
-    public Coordinate2D getPositionFinale() {
+    public Coordonnees getPositionFinale() {
         return positionFinale;
     }
 
@@ -67,7 +65,7 @@ public class Agent extends Thread {
     }
     
     
-    public void setPosition(int[][] position) {
+    public void setPosition(Coordonnees position) {
         this.position = position;
     }
 
@@ -75,7 +73,7 @@ public class Agent extends Thread {
         this.grille = grille;
     }
 
-    public void setPositionFinale(int[][] positionFinale) {
+    public void setPositionFinale(Coordonnees positionFinale) {
         this.positionFinale = positionFinale;
     }
 
