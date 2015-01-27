@@ -35,5 +35,25 @@ public class Grille {
         }
     }//Grille()
     
+    public void print(){
+        System.out.println("_____________________________________");
+        String ligne="";
+        
+        for(int i=0;i<taille;i++){
+            for(int j=0;j<taille;j++){
+                if(grille[i][j] !=null){
+                    ligne+="["+grille[i][j].getNom()+"]";
+                }else{
+                   ligne+="[ ]";
+                }
+            }
+            System.out.println(ligne);
+            ligne ="";
+        }
+        
+        System.out.println("_____________________________________");
+        
+    }
+    
     
 }
