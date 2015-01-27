@@ -16,7 +16,7 @@ public class SMA_Puzzle {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Agent agt1 = new Agent
     }
     
 }
