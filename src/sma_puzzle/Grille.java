@@ -43,7 +43,7 @@ public class Grille {
     public synchronized Agent moveAgent(Agent a, Coordonnees cible) {
         // Verifications
             // TODO verification c'est à coté ?
-        if (grille[cible.getX()][cible.getY()] != null) {
+        if (isLibre(cible)) {
             return a;
         }
         
@@ -67,6 +67,10 @@ public class Grille {
             }
         }
         return tousSatisait;
+    }
+    
+    public boolean isLibre(Coordonnees c){
+        return(grille[c.getX()][c.getY()] != null);
     }
     
     

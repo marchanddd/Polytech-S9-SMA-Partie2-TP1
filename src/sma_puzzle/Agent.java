@@ -43,6 +43,11 @@ public class Agent extends Thread {
             //regarder si on est en position finale
             if (! satisfait()) { 
                 Coordonnees cible = plusCourtChemin();
+                if(grille.isLibre(cible)){
+                    
+                }else{
+                    traiterMessages();
+                }
                 
             } else {
                 traiterMessages();
