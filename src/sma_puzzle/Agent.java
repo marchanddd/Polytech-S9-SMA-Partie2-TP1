@@ -13,23 +13,26 @@ import java.util.ArrayList;
  * @author Epulapp
  */
 public class Agent extends Thread {
-    private Coordonnees position;     private Grille grille; //grille
-    private Coordonnees positionFinale;    private ArrayList<Message> msgTraites;//liste des messages traités
-    private ArrayList<Message> msgEnvoyes;//liste des messages envoyés
-    private ArrayList<ArrayList<Message>> mailBox;
-    private ArrayList<Agent> listAgents;
+    
     private String nom;
     
-    public Agent(){
-        
-    }
+    private Coordonnees position;
+    private Coordonnees positionFinale;
+    private Grille grille; //grille
+    
+    private ArrayList<Message> msgEnvoyes;//liste des messages envoyés
+    private ArrayList<ArrayList<Message>> mailBox;
+    private ArrayList<Message> msgTraites;//liste des messages traités
+    
+    private ArrayList<Agent> listAgents;
+    
+    
     public Agent(Coordonnees p,Grille g, Coordonnees pf, ArrayList<ArrayList<Message>> mb,String n){
         nom = n;
         position = p;
         grille = g;
         positionFinale = pf;
         mailBox = mb;
-        
     }
     
    
@@ -41,7 +44,12 @@ public class Agent extends Thread {
         //consulter ses messages et les traiter
     }
     
-
+    
+    
+    /**
+     * Getters / Setters
+     */
+    
     public Coordonnees getPosition() {
         return position;
     }
