@@ -44,13 +44,9 @@ public class Agent extends Thread {
             if (! satisfait()) { 
                 Coordonnees cible = plusCourtChemin();
                 
+            } else {
+                traiterMessages();
             }
-            
-            //consulter ses messages et les traiter
-            for (Message msg : mailBox) {
-                
-            }
-        
         }
     }
     
@@ -82,6 +78,15 @@ public class Agent extends Thread {
     /**
      * Fonctions Messages
      */
+    
+    /**
+     * consulter ses messages et les traiter
+     */
+    private void traiterMessages() {
+        for (Message msg : mailBox) {
+
+        }
+    }
     
     public void recevoirMessage(Message msg) {
         mailBox.add(msg);
