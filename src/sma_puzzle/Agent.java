@@ -26,6 +26,8 @@ public class Agent extends Thread {
     
     private ArrayList<Agent> listAgents;
     
+    private int delay;
+    
     
     public Agent(Coordonnees p,Grille g, Coordonnees pf, String n){
         nom = n;
@@ -33,6 +35,7 @@ public class Agent extends Thread {
         grille = g;
         positionFinale = pf;
         mailBox = new ArrayList<Message>();
+        delay=0;
     }
     
    
@@ -41,20 +44,31 @@ public class Agent extends Thread {
             //autre solution : gain individuel failbe si on est dans la bonne position et meilleur gain si tout le monde y est.
             
             //regarder si on est en position finale
+            
+            
+            Coordonnees cible = plusCourtChemin();
             if (! satisfait()) { 
-                Coordonnees cible = plusCourtChemin();
+                
                 if(grille.isLibre(cible)){
                     grille.moveAgent(this, cible);
+                    delay =0;
                 }else{
-                    Message msg = new Message(this, grille.getCase(cible), Message.ACTLANGAGE.REQUEST, Message.ACTION.BOUGER, cible);
-                    grille.getCase(cible).recevoirMessage(msg);
-                    msgEnvoyes.add(msg);
-                    traiterMessages();
+                    if(delay<10){
+                        Message msg = new Message(this, grille.getCase(cible), Message.ACTLANGAGE.REQUEST, Message.ACTION.BOUGER, cible);
+                        grille.getCase(cible).recevoirMessage(msg);
+                        msgEnvoyes.add(msg);
+                        traiterMessages(cible);
+                    }else{
+                        //bouger aléatoirement
+                    }
+                        
                 }
                 
             } else {
-                traiterMessages();
+                traiterMessages(cible);
             }
+            delay++;
+            
         }
     }
     
@@ -90,13 +104,21 @@ public class Agent extends Thread {
     /**
      * consulter ses messages et les traiter
      */
-    private void traiterMessages() {
+    private void traiterMessages(Coordonnees cible) {
         for (Message msg : mailBox) {
             // Verification que l'émetteur a toujours besoin
             
             // Verification que l'on est toujours sur la position 
             if (msg.getPosition().equals(position)) {
-                
+                if(grille.isLibre(cible)){
+                    grille.moveAgent(this, cible);
+                }else{
+                    Message msg2 = new Message(this, grille.getCase(cible), Message.ACTLANGAGE.REQUEST, Message.ACTION.BOUGER, cible);
+                    grille.getCase(cible).recevoirMessage(msg2);
+                    msgEnvoyes.add(msg2);
+                }
+                mailBox.remove(msg);
+                msgTraites.add(msg);
             } else {
                 mailBox.remove(msg);
             }
