@@ -133,7 +133,7 @@ public class Agent extends Thread {
     }
     
     public void bougerAleatoirement(){
-        Coordonnees retour = new Coordonnees(position.getX(),position.getY());
+        Coordonnees newPosition = new Coordonnees(position.getX(),position.getY());
         ArrayList<Coordonnees> casesPossible = new ArrayList<Coordonnees>();
         Coordonnees haut = new Coordonnees(position.getX()-1,position.getY());//Le haut
         Coordonnees bas = new Coordonnees(position.getX()+1,position.getY());//Le bas
@@ -163,16 +163,15 @@ public class Agent extends Thread {
                 casesPossible.add(droite);
             }
         }
-        if(casesPossible.size() > 0){
-            retour = casesPossible.get((int)(Math.random())*(casesPossible.size()));
+        if (! casesPossible.isEmpty()) {
+            if(casesPossible.size() == 1) {
+                newPosition = casesPossible.get(0);
+            } else {
+                newPosition = casesPossible.get((int)(Math.random())*(casesPossible.size()));
+            }
+            grille.moveAgent(this, newPosition);
         }
-
-
-        grille.moveAgent(this, retour);
-
-
-    }//bougerAleatoirement()
-    
+    }    
     /**
      * Getters / Setters
      */
