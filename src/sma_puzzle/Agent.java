@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package sma_puzzle;
 
@@ -26,6 +21,8 @@ public class Agent extends Thread {
     
     private ArrayList<Agent> listAgents;
     
+    private int delay;
+    
     
     public Agent(Coordonnees p,Grille g, Coordonnees pf, String n){
         nom = n;
@@ -33,6 +30,7 @@ public class Agent extends Thread {
         grille = g;
         positionFinale = pf;
         mailBox = new ArrayList<Message>();
+        delay=0;
     }
     
    
@@ -41,17 +39,28 @@ public class Agent extends Thread {
             //autre solution : gain individuel failbe si on est dans la bonne position et meilleur gain si tout le monde y est.
             
             //regarder si on est en position finale
-            if (! isSatisfait()) { 
+            if (! isSatisfait()) {
                 Coordonnees cible = plusCourtChemin();
+
                 if(grille.isLibre(cible)){
                     grille.moveAgent(this, cible);
-                    grille.print();
+                    delay = 0;
                 }else{
-                    traiterMessages();
-                }                
+                    if(delay<10){
+                        Message msg = new Message(this, grille.getCase(cible), Message.ACTLANGAGE.REQUEST, Message.ACTION.BOUGER, cible);
+                        grille.getCase(cible).recevoirMessage(msg);
+                        msgEnvoyes.add(msg);
+                        traiterMessages(cible);
+                    }else{
+                        //bouger aléatoirement
+                    }
+                        
+                }
             } else {
-                traiterMessages();
+                //traiterMessages(null); // TODO 
             }
+            delay++;
+            
         }
     }
     
@@ -87,13 +96,21 @@ public class Agent extends Thread {
     /**
      * consulter ses messages et les traiter
      */
-    private void traiterMessages() {
+    private void traiterMessages(Coordonnees cible) {
         for (Message msg : mailBox) {
-            // Verification que l'émetteur a toujours besoins 
+            // Verification que l'émetteur a toujours besoin
             
             // Verification que l'on est toujours sur la position 
             if (msg.getPosition().equals(position)) {
-                
+                if(grille.isLibre(cible)){
+                    grille.moveAgent(this, cible);
+                }else{
+                    Message msg2 = new Message(this, grille.getCase(cible), Message.ACTLANGAGE.REQUEST, Message.ACTION.BOUGER, cible);
+                    grille.getCase(cible).recevoirMessage(msg2);
+                    msgEnvoyes.add(msg2);
+                }
+                mailBox.remove(msg);
+                msgTraites.add(msg);
             } else {
                 mailBox.remove(msg);
             }
