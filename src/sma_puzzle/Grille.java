@@ -49,7 +49,7 @@ public class Grille {
      */
     public Agent moveAgent(Agent a, Coordonnees cible) {
         // Verifications
-        // TODO verification c'est à coté ?
+        // TODO AMELIORATION verifications
         if (isLibre(cible)) {
             // Modification de la position
             synchronized(grille) {
