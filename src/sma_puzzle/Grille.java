@@ -61,7 +61,7 @@ public class Grille {
     public boolean tousSatisfait() {
         tousSatisait = true;
         for (Agent a : listAgents) {
-            if (! a.satisfait()) {
+            if (! a.isSatisfait()) {
                 tousSatisait = false;
                 return tousSatisait;
             }
@@ -70,7 +70,7 @@ public class Grille {
     }
     
     public boolean isLibre(Coordonnees c){
-        return(grille[c.getX()][c.getY()] != null);
+        return(grille[c.getX()][c.getY()] == null);
     }
     
     

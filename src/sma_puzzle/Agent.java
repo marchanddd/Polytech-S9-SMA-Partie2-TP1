@@ -41,14 +41,14 @@ public class Agent extends Thread {
             //autre solution : gain individuel failbe si on est dans la bonne position et meilleur gain si tout le monde y est.
             
             //regarder si on est en position finale
-            if (! satisfait()) { 
+            if (! isSatisfait()) { 
                 Coordonnees cible = plusCourtChemin();
                 if(grille.isLibre(cible)){
-                    
+                    grille.moveAgent(this, cible);
+                    grille.print();
                 }else{
                     traiterMessages();
-                }
-                
+                }                
             } else {
                 traiterMessages();
             }
@@ -72,7 +72,7 @@ public class Agent extends Thread {
      * Etats
      */
     
-    public boolean satisfait() {
+    public boolean isSatisfait() {
         if (this.getPosition().equals(this.getPositionFinale())) {
             return true;
         } else {
