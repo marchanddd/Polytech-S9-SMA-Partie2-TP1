@@ -76,12 +76,7 @@ public class Grille {
     public Agent getCase(Coordonnees c){
         return grille[c.getX()][c.getY()];
     }
-    
-    public Agent getCase(Coordonnees c){
-        return grille[c.getX()][c.getY()];
-    }
-    
-    
+     
     public void print(){
         System.out.println("_____________________________________");
         String ligne="";
