@@ -57,13 +57,13 @@ public class Agent extends Thread {
                         Message msg = new Message(this, grille.getCase(cible), Message.ACTLANGAGE.REQUEST, Message.ACTION.BOUGER, cible);
                         agentCible.recevoirMessage(msg);
                         msgEnvoyes.add(msg);
-                        traiterMessages(cible);
+                        traiterMessages();
                     } else {
                         bougerAleatoirement();
                     }  
                 }
             } else {
-                //traiterMessages(null); // TODO 
+                traiterMessages();
             }
             delay++;
             grille.print();
@@ -106,9 +106,8 @@ public class Agent extends Thread {
 
     /**
      * consulter ses messages et les traiter
-     * @param cible Coordonnees : 
      */
-    private void traiterMessages(Coordonnees cible) { 
+    private void traiterMessages() { 
         synchronized(mailBox) {
             Iterator<Message> iMailBox = mailBox.iterator();
             while (iMailBox.hasNext()) {
@@ -117,14 +116,6 @@ public class Agent extends Thread {
 
                 // Verification que l'on est toujours sur la position 
                 if (msg.getPosition().equals(position)) {
-//                    Agent agentOnCible = grille.getCase(cible);
-//                    if(agentOnCible == null){
-//                        grille.moveAgent(this, cible);
-//                    }else{
-//                        Message msg2 = new Message(this, agentOnCible, Message.ACTLANGAGE.REQUEST, Message.ACTION.BOUGER, cible);
-//                        agentOnCible.recevoirMessage(msg2);
-//                        msgEnvoyes.add(msg2);
-//                    }
                     bougerAleatoirement();
                     msgTraites.add(msg);
                 }
