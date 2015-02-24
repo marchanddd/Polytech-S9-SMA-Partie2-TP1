@@ -61,8 +61,7 @@ public class Agent extends Thread {
                         traiterMessages(cible);
                     } else {
                         bougerAleatoirement();
-                        
-            grille.print();
+                        grille.print();
                     }  
                 }
             } else {
@@ -128,6 +127,7 @@ public class Agent extends Thread {
 //                        msgEnvoyes.add(msg2);
 //                    }
                     bougerAleatoirement();
+                    grille.print();
                     msgTraites.add(msg);
                 }
                 iMailBox.remove();
@@ -180,7 +180,7 @@ public class Agent extends Thread {
         }
         
         //Vérifier droite
-        if(position.getX() < grille.getTaille()-1){
+        if(position.getY() < grille.getTaille()-1){
             if(grille.isLibre(droite)){
                 casesPossible.add(droite);
             }
