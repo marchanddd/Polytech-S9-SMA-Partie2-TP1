@@ -2,6 +2,7 @@
 package sma_puzzle;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -108,23 +109,24 @@ public class Agent extends Thread {
      */
     private void traiterMessages(Coordonnees cible) { 
         synchronized(mailBox) {
-            for (Message msg : mailBox) {
+            Iterator<Message> iMailBox = mailBox.iterator();
+            while (iMailBox.hasNext()) {
+                Message msg = iMailBox.next();
                 // Verification que l'émetteur a toujours besoin
 
                 // Verification que l'on est toujours sur la position 
                 if (msg.getPosition().equals(position)) {
-                    if(grille.isLibre(cible)){
+                    Agent agentOnCible = grille.getCase(cible);
+                    if(agentOnCible == null){
                         grille.moveAgent(this, cible);
                     }else{
-                        Message msg2 = new Message(this, grille.getCase(cible), Message.ACTLANGAGE.REQUEST, Message.ACTION.BOUGER, cible);
-                        grille.getCase(cible).recevoirMessage(msg2);
+                        Message msg2 = new Message(this, agentOnCible, Message.ACTLANGAGE.REQUEST, Message.ACTION.BOUGER, cible);
+                        agentOnCible.recevoirMessage(msg2);
                         msgEnvoyes.add(msg2);
                     }
-                    mailBox.remove(msg);
                     msgTraites.add(msg);
-                } else { 
-                    mailBox.remove(msg);
                 }
+                iMailBox.remove();
             }
         }
     }
@@ -187,7 +189,7 @@ public class Agent extends Thread {
         
         
         return retour;
-    }
+    }//bougerAleatoirement()
     
     /**
      * Getters / Setters
