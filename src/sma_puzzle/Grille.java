@@ -59,7 +59,7 @@ public class Grille {
     public boolean isTousSatisfait() {
         tousSatisait = true;
         for (Agent a : listAgents) {
-            if (! a.satisfait()) {
+            if (! a.isSatisfait()) {
                 tousSatisait = false;
                 break;
             }
@@ -74,8 +74,7 @@ public class Grille {
     public Agent getCase(Coordonnees c){
         return grille[c.getX()][c.getY()];
     }
-    
-    
+     
     public void print(){
         System.out.println("_____________________________________");
         String ligne="";

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package sma_puzzle;
 
@@ -46,14 +41,11 @@ public class Agent extends Thread {
             //autre solution : gain individuel failbe si on est dans la bonne position et meilleur gain si tout le monde y est.
             
             //regarder si on est en position finale
-            
-            
-            Coordonnees cible = plusCourtChemin();
-            if (! satisfait()) { 
-                
+            if (! isSatisfait()) {
+                Coordonnees cible = plusCourtChemin();
                 if(grille.isLibre(cible)){
                     grille.moveAgent(this, cible);
-                    delay =0;
+                    delay = 0;
                 }else{
                     if(delay<10){
                         Message msg = new Message(this, grille.getCase(cible), Message.ACTLANGAGE.REQUEST, Message.ACTION.BOUGER, cible);
@@ -65,9 +57,8 @@ public class Agent extends Thread {
                     }
                         
                 }
-                
             } else {
-                traiterMessages(cible);
+                //traiterMessages(null); // TODO 
             }
             delay++;
             grille.print();
@@ -96,7 +87,7 @@ public class Agent extends Thread {
      * Etats
      */
     
-    public boolean satisfait() {
+    public boolean isSatisfait() {
         if (this.getPosition().equals(this.getPositionFinale())) {
             return true;
         } else {
