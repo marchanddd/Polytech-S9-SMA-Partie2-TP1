@@ -13,7 +13,17 @@ public class SMA_Puzzle {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        test2();
+        //test2();
+        Grille grille = generateGrille(5,10);
+        grille.print();
+        
+        for(Agent a : grille.getListAgents()){
+            a.start();
+        }
+        
+        grille.print();
+        
+        
     }//main()
     
     private static void test1() {
@@ -47,5 +57,34 @@ public class SMA_Puzzle {
             a.start();
         }
     }//test1()
+    
+    
+    public static Grille generateGrille(int taille,int nbAgent){
+        Grille grille = new Grille(taille,null);
+        ArrayList<Coordonnees> listeDestinations = new ArrayList<Coordonnees>();
+        
+        for(int k=0;k<nbAgent;k++){
+            
+            Coordonnees cDepart;
+            Coordonnees cArrivee;
+            
+            do{
+                cDepart = new Coordonnees((int)((Math.random())*(taille)),(int)(Math.random()*(taille)));
+            }while(!grille.isLibre(cDepart));
+            
+            
+            do{
+                cArrivee = new Coordonnees((int)((Math.random())*(taille)),(int)(Math.random()*(taille)));
+            }while(listeDestinations.contains(cArrivee));
+            
+            
+            Agent a = new Agent(cDepart,grille,cArrivee,""+k);
+            grille.moveAgent(a, cDepart);
+            grille.getListAgents().add(a);
+            
+        }
+
+        return grille;
+    }
     
 }

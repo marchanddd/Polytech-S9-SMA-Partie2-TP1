@@ -25,12 +25,19 @@ public class Grille {
             }
         }
         
-        for(Agent a : la){
-            if (grille[a.getPosition().getX()][a.getPosition().getY()] == null) {
-                grille[a.getPosition().getX()][a.getPosition().getY()] = a;
+        if(la != null){
+            for(Agent a : la){
+                if (grille[a.getPosition().getX()][a.getPosition().getY()] == null) {
+                    grille[a.getPosition().getX()][a.getPosition().getY()] = a;
+                }
             }
+            
+            isTousSatisfait();
+        }else{
+            listAgents = new ArrayList<Agent>();
         }
-        isTousSatisfait();
+        
+        
     }//Grille()
     
     
@@ -93,6 +100,11 @@ public class Grille {
                     }else{
                        ligne+="[ ]";
                     }
+//                    if(grille[i][j] !=null){
+//                        ligne+=grille[i][j].getNom();
+//                    }else{
+//                       ligne+="-";
+//                    }
                 }
             }
             System.out.println(ligne);
@@ -105,6 +117,10 @@ public class Grille {
     
     public int getTaille(){
         return taille;
+    }
+    
+    public ArrayList<Agent> getListAgents(){
+        return listAgents;
     }
     
     
