@@ -23,6 +23,7 @@ public class Agent extends Thread {
     
     private ArrayList<Agent> listAgents;
     
+    // Compteur pour éviter de rester bloqué
     private int delay;
     
     
@@ -45,19 +46,20 @@ public class Agent extends Thread {
             //regarder si on est en position finale
             if (! isSatisfait()) {
                 Coordonnees cible = plusCourtChemin();
-                if(grille.isLibre(cible)){
+                Agent agentCible = grille.getCase(cible);
+                if(agentCible == null) { // Case cible libre
                     grille.moveAgent(this, cible);
                     delay = 0;
-                }else{
-                    if(delay<10){
+                } else {
+                    if(delay < 10) {
+                        // AMELIORATION : ne pas renvoyer le même message
                         Message msg = new Message(this, grille.getCase(cible), Message.ACTLANGAGE.REQUEST, Message.ACTION.BOUGER, cible);
-                        grille.getCase(cible).recevoirMessage(msg);
+                        agentCible.recevoirMessage(msg);
                         msgEnvoyes.add(msg);
                         traiterMessages(cible);
-                    }else{
-                        //bouger aléatoirement
-                    }
-                        
+                    } else {
+                        // TODO bouger aléatoirement
+                    }  
                 }
             } else {
                 //traiterMessages(null); // TODO 
@@ -70,14 +72,14 @@ public class Agent extends Thread {
                 System.out.println(ex.getMessage());
             }
         }
-    }
+    }//run()
     
     private Coordonnees plusCourtChemin() {
         Coordonnees cible = (Coordonnees) position.clone();
+        // TODO AMELIORATION choix de l'axe aléatoirement
         if (position.getX() != positionFinale.getX()) {
             cible.setX(position.getX() + 
                     (position.getX() < positionFinale.getX() ? 1 : -1));
-            // TODO verification place libre et réaction
         } else if (position.getY() != positionFinale.getY()) {
             cible.setY(position.getY() + 
                     (position.getY() < positionFinale.getY() ? 1 : -1));
@@ -105,7 +107,6 @@ public class Agent extends Thread {
      * consulter ses messages et les traiter
      */
     private void traiterMessages(Coordonnees cible) { 
-        try{
         synchronized(mailBox) {
             for (Message msg : mailBox) {
                 // Verification que l'émetteur a toujours besoin
@@ -125,9 +126,6 @@ public class Agent extends Thread {
                     mailBox.remove(msg);
                 }
             }
-        }
-        }catch (Exception e){
-            System.out.println("erreur sans doute acces concurenciel");
         }
     }
     
