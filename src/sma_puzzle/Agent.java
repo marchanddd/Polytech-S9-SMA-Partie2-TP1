@@ -82,12 +82,22 @@ public class Agent extends Thread {
     private Coordonnees plusCourtChemin() {
         Coordonnees cible = (Coordonnees) position.clone();
         // TODO AMELIORATION choix de l'axe aléatoirement
-        if (position.getX() != positionFinale.getX()) {
-            cible.setX(position.getX() + 
-                    (position.getX() < positionFinale.getX() ? 1 : -1));
-        } else if (position.getY() != positionFinale.getY()) {
-            cible.setY(position.getY() + 
-                    (position.getY() < positionFinale.getY() ? 1 : -1));
+        if (Math.random() < 0.5) {
+            if (position.getX() != positionFinale.getX()) {
+                cible.setX(position.getX() + 
+                        (position.getX() < positionFinale.getX() ? 1 : -1));
+            } else if (position.getY() != positionFinale.getY()) {
+                cible.setY(position.getY() + 
+                        (position.getY() < positionFinale.getY() ? 1 : -1));
+            }
+        } else {
+            if (position.getY() != positionFinale.getY()) {
+                cible.setY(position.getY() + 
+                        (position.getY() < positionFinale.getY() ? 1 : -1));
+            } else if (position.getX() != positionFinale.getX()) {
+                cible.setX(position.getX() + 
+                        (position.getX() < positionFinale.getX() ? 1 : -1));
+            }
         }
         return cible;
     }
