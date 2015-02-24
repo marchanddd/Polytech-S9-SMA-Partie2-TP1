@@ -103,5 +103,9 @@ public class Grille {
         
     }
     
+    public int getTaille(){
+        return taille;
+    }
+    
     
 }
