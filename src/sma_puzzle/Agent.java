@@ -105,9 +105,10 @@ public class Agent extends Thread {
     /**
      * Fonctions Messages
      */
-    
+
     /**
      * consulter ses messages et les traiter
+     * @param cible Coordonnees : 
      */
     private void traiterMessages(Coordonnees cible) { 
         synchronized(mailBox) {
@@ -118,14 +119,15 @@ public class Agent extends Thread {
 
                 // Verification que l'on est toujours sur la position 
                 if (msg.getPosition().equals(position)) {
-                    Agent agentOnCible = grille.getCase(cible);
-                    if(agentOnCible == null){
-                        grille.moveAgent(this, cible);
-                    }else{
-                        Message msg2 = new Message(this, agentOnCible, Message.ACTLANGAGE.REQUEST, Message.ACTION.BOUGER, cible);
-                        agentOnCible.recevoirMessage(msg2);
-                        msgEnvoyes.add(msg2);
-                    }
+//                    Agent agentOnCible = grille.getCase(cible);
+//                    if(agentOnCible == null){
+//                        grille.moveAgent(this, cible);
+//                    }else{
+//                        Message msg2 = new Message(this, agentOnCible, Message.ACTLANGAGE.REQUEST, Message.ACTION.BOUGER, cible);
+//                        agentOnCible.recevoirMessage(msg2);
+//                        msgEnvoyes.add(msg2);
+//                    }
+                    bougerAleatoirement();
                     msgTraites.add(msg);
                 }
                 iMailBox.remove();
