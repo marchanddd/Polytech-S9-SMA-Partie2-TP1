@@ -115,16 +115,22 @@ public class Agent extends Thread {
                     grille.getCase(cible).recevoirMessage(msg2);
                     msgEnvoyes.add(msg2);
                 }
-                mailBox.remove(msg);
+                synchronized(mailBox) {
+                    mailBox.remove(msg);
+                }
                 msgTraites.add(msg);
-            } else {
-                mailBox.remove(msg);
+            } else {                
+                synchronized(mailBox) {
+                    mailBox.remove(msg);
+                }
             }
         }
     }
     
     public void recevoirMessage(Message msg) {
-        mailBox.add(msg);
+        synchronized(mailBox) {
+            mailBox.add(msg);
+        }
     }
     
     /**
