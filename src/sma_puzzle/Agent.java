@@ -171,7 +171,9 @@ public class Agent extends Thread {
             }
             grille.moveAgent(this, newPosition);
         }
-    }    
+    }//bougerAleatoirement()
+    
+    
     /**
      * Getters / Setters
      */
