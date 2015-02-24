@@ -7,6 +7,8 @@
 package sma_puzzle;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -40,7 +42,7 @@ public class Agent extends Thread {
     
    
     public void Run(){
-        while (! grille.tousSatisfait()) {//tant que le puzzle n'est pas reconstitué on boucle 
+        while (! grille.isTousSatisfait()) { //tant que le puzzle n'est pas reconstitué on boucle 
             //autre solution : gain individuel failbe si on est dans la bonne position et meilleur gain si tout le monde y est.
             
             //regarder si on est en position finale
@@ -68,7 +70,12 @@ public class Agent extends Thread {
                 traiterMessages(cible);
             }
             delay++;
-            
+            grille.print();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
     

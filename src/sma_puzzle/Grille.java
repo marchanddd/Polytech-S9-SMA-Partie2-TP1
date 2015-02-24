@@ -30,7 +30,7 @@ public class Grille {
                 grille[a.getPosition().getX()][a.getPosition().getY()] = a;
             }
         }
-        tousSatisfait();
+        isTousSatisfait();
     }//Grille()
     
     
@@ -44,13 +44,11 @@ public class Grille {
         // Verifications
             // TODO verification c'est à coté ?
         if (isLibre(cible)) {
-            return a;
+            // Modification de la position
+            grille[a.getPosition().getX()][a.getPosition().getY()] = null;
+            grille[cible.getX()][cible.getY()] = a;
+            a.setPosition(cible);
         }
-        
-        // Modification de la position
-        grille[a.getPosition().getX()][a.getPosition().getY()] = null;
-        grille[cible.getX()][cible.getY()] = a;
-        a.setPosition(cible);
         
         return a;
     }
@@ -58,19 +56,19 @@ public class Grille {
     /**
      * Verifie que tous les agents soient satisfaits
      */
-    public boolean tousSatisfait() {
+    public boolean isTousSatisfait() {
         tousSatisait = true;
         for (Agent a : listAgents) {
             if (! a.satisfait()) {
                 tousSatisait = false;
-                return tousSatisait;
+                break;
             }
         }
         return tousSatisait;
     }
     
     public boolean isLibre(Coordonnees c){
-        return(grille[c.getX()][c.getY()] != null);
+        return(grille[c.getX()][c.getY()] == null);
     }
     
     public Agent getCase(Coordonnees c){
