@@ -40,13 +40,15 @@ public class Grille {
      * @param cible
      * @return Agent a
      */
-    public synchronized Agent moveAgent(Agent a, Coordonnees cible) {
+    public Agent moveAgent(Agent a, Coordonnees cible) {
         // Verifications
             // TODO verification c'est à coté ?
         if (isLibre(cible)) {
             // Modification de la position
-            grille[a.getPosition().getX()][a.getPosition().getY()] = null;
-            grille[cible.getX()][cible.getY()] = a;
+            synchronized(grille) {
+                grille[a.getPosition().getX()][a.getPosition().getY()] = null;
+                grille[cible.getX()][cible.getY()] = a;
+            }
             a.setPosition(cible);
         }
         
@@ -68,11 +70,15 @@ public class Grille {
     }
     
     public boolean isLibre(Coordonnees c){
-        return(grille[c.getX()][c.getY()] == null);
+        synchronized(grille) {
+            return(grille[c.getX()][c.getY()] == null);
+        }
     }
     
     public Agent getCase(Coordonnees c){
-        return grille[c.getX()][c.getY()];
+        synchronized(grille) {
+            return grille[c.getX()][c.getY()];
+        }
     }
      
     public void print(){
@@ -81,10 +87,12 @@ public class Grille {
         
         for(int i=0;i<taille;i++){
             for(int j=0;j<taille;j++){
-                if(grille[i][j] !=null){
-                    ligne+="["+grille[i][j].getNom()+"]";
-                }else{
-                   ligne+="[ ]";
+                synchronized(grille) {
+                    if(grille[i][j] !=null){
+                        ligne+="["+grille[i][j].getNom()+"]";
+                    }else{
+                       ligne+="[ ]";
+                    }
                 }
             }
             System.out.println(ligne);
