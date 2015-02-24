@@ -104,7 +104,8 @@ public class Agent extends Thread {
     /**
      * consulter ses messages et les traiter
      */
-    private void traiterMessages(Coordonnees cible) {               
+    private void traiterMessages(Coordonnees cible) { 
+        try{
         synchronized(mailBox) {
             for (Message msg : mailBox) {
                 // Verification que l'émetteur a toujours besoin
@@ -124,6 +125,9 @@ public class Agent extends Thread {
                     mailBox.remove(msg);
                 }
             }
+        }
+        }catch (Exception e){
+            System.out.println("erreur sans doute acces concurenciel");
         }
     }
     

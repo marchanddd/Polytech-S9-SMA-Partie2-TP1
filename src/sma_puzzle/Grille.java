@@ -81,7 +81,7 @@ public class Grille {
         }
     }
      
-    public void print(){
+    public synchronized void print(){
         System.out.println("_____________________________________");
         String ligne="";
         
