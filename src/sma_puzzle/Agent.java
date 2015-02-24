@@ -104,25 +104,23 @@ public class Agent extends Thread {
     /**
      * consulter ses messages et les traiter
      */
-    private void traiterMessages(Coordonnees cible) {
-        for (Message msg : mailBox) {
-            // Verification que l'émetteur a toujours besoin
-            
-            // Verification que l'on est toujours sur la position 
-            if (msg.getPosition().equals(position)) {
-                if(grille.isLibre(cible)){
-                    grille.moveAgent(this, cible);
-                }else{
-                    Message msg2 = new Message(this, grille.getCase(cible), Message.ACTLANGAGE.REQUEST, Message.ACTION.BOUGER, cible);
-                    grille.getCase(cible).recevoirMessage(msg2);
-                    msgEnvoyes.add(msg2);
-                }
-                synchronized(mailBox) {
+    private void traiterMessages(Coordonnees cible) {               
+        synchronized(mailBox) {
+            for (Message msg : mailBox) {
+                // Verification que l'émetteur a toujours besoin
+
+                // Verification que l'on est toujours sur la position 
+                if (msg.getPosition().equals(position)) {
+                    if(grille.isLibre(cible)){
+                        grille.moveAgent(this, cible);
+                    }else{
+                        Message msg2 = new Message(this, grille.getCase(cible), Message.ACTLANGAGE.REQUEST, Message.ACTION.BOUGER, cible);
+                        grille.getCase(cible).recevoirMessage(msg2);
+                        msgEnvoyes.add(msg2);
+                    }
                     mailBox.remove(msg);
-                }
-                msgTraites.add(msg);
-            } else {                
-                synchronized(mailBox) {
+                    msgTraites.add(msg);
+                } else { 
                     mailBox.remove(msg);
                 }
             }
