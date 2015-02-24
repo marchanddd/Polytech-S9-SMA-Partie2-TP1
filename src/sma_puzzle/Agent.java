@@ -142,54 +142,37 @@ public class Agent extends Thread {
     public Coordonnees bougerAleatoirement(){
         Coordonnees retour = new Coordonnees(position.getX(),position.getY());
         ArrayList<Coordonnees> casesPossible = new ArrayList<Coordonnees>();
-        
-        //Le haut
-        Coordonnees haut = new Coordonnees(position.getX()-1,position.getY());
-        
-        //Le bas
-        Coordonnees bas = new Coordonnees(position.getX()+1,position.getY());
-        
-        //La gauche
-        Coordonnees gauche = new Coordonnees(position.getX(),position.getY()-1);
-        
-        //La droite
-        Coordonnees droite = new Coordonnees(position.getX(),position.getY()+1);
-        
-        
+        Coordonnees haut = new Coordonnees(position.getX()-1,position.getY());//Le haut
+        Coordonnees bas = new Coordonnees(position.getX()+1,position.getY());//Le bas
+        Coordonnees gauche = new Coordonnees(position.getX(),position.getY()-1);//La gauche
+        Coordonnees droite = new Coordonnees(position.getX(),position.getY()+1);//La droite
         //Vérifier haut
         if(position.getX() > 0){
             if(grille.isLibre(haut)){
                 casesPossible.add(haut);
             }
         }
-        
         //Vérifier bas
         if(position.getX() < grille.getTaille()-1){
             if(grille.isLibre(bas)){
                 casesPossible.add(bas);
             }
         }
-        
          //Vérifier gauche
         if(position.getY() > 0){
             if(grille.isLibre(gauche)){
                 casesPossible.add(gauche);
             }
         }
-        
         //Vérifier droite
         if(position.getX() < grille.getTaille()-1){
             if(grille.isLibre(droite)){
                 casesPossible.add(droite);
             }
         }
-        
         if(casesPossible.size() > 0){
             retour = casesPossible.get((int)(Math.random())*(casesPossible.size()));
         }
-        
-        
-        
         return retour;
     }//bougerAleatoirement()
     
