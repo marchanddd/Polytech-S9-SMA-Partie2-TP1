@@ -50,6 +50,7 @@ public class Agent extends Thread {
                 Agent agentCible = grille.getCase(cible);
                 if(agentCible == null) { // Case cible libre
                     grille.moveAgent(this, cible);
+                    grille.print();
                     delay = 0;
                 } else {
                     if(delay < 10) {
@@ -60,15 +61,16 @@ public class Agent extends Thread {
                         traiterMessages(cible);
                     } else {
                         bougerAleatoirement();
+                        
+            grille.print();
                     }  
                 }
             } else {
                 //traiterMessages(null); // TODO 
             }
             delay++;
-            grille.print();
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException ex) {
                 System.out.println(ex.getMessage());
             }
@@ -137,7 +139,7 @@ public class Agent extends Thread {
         }
     }
     
-    public Coordonnees bougerAleatoirement(){
+    public void bougerAleatoirement(){
         Coordonnees retour = new Coordonnees(position.getX(),position.getY());
         ArrayList<Coordonnees> casesPossible = new ArrayList<Coordonnees>();
         
@@ -188,7 +190,7 @@ public class Agent extends Thread {
         
         
         
-        return retour;
+        grille.moveAgent(this, retour);
     }//bougerAleatoirement()
     
     /**
