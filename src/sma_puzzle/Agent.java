@@ -41,7 +41,6 @@ public class Agent extends Thread {
             //regarder si on est en position finale
             if (! isSatisfait()) {
                 Coordonnees cible = plusCourtChemin();
-
                 if(grille.isLibre(cible)){
                     grille.moveAgent(this, cible);
                     delay = 0;
