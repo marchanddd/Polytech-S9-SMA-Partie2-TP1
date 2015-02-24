@@ -167,7 +167,7 @@ public class Agent extends Thread {
             if(casesPossible.size() == 1) {
                 newPosition = casesPossible.get(0);
             } else {
-                newPosition = casesPossible.get((int)(Math.random())*(casesPossible.size()));
+                newPosition = casesPossible.get((int)(Math.random()*casesPossible.size()));
             }
             grille.moveAgent(this, newPosition);
         }
