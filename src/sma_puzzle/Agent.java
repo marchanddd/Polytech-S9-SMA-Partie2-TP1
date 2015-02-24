@@ -58,7 +58,7 @@ public class Agent extends Thread {
                         msgEnvoyes.add(msg);
                         traiterMessages(cible);
                     } else {
-                        // TODO bouger aléatoirement
+                        bougerAleatoirement();
                     }  
                 }
             } else {
