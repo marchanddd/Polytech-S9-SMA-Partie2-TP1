@@ -166,7 +166,7 @@ public class Agent extends Thread {
         if(casesPossible.size() > 0){
             retour = casesPossible.get((int)(Math.random())*(casesPossible.size()));
         }
-        
+
         grille.moveAgent(this, retour);
 
     }//bougerAleatoirement()
