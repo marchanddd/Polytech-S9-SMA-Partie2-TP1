@@ -55,21 +55,24 @@ public class Agent extends Thread {
                 } else {
                     if(delay < 10) {
                         // AMELIORATION : ne pas renvoyer le même message
-                        Message msg = new Message(this, grille.getCase(cible), Message.ACTLANGAGE.REQUEST, Message.ACTION.BOUGER, cible);
+                        Message msg = new Message(this, agentCible, Message.ACTLANGAGE.REQUEST, Message.ACTION.BOUGER, cible);
+                        System.out.println("Agent " + nom + "a envoyé un message à Agent " +agentCible.getNom());
                         agentCible.recevoirMessage(msg);
                         msgEnvoyes.add(msg);
                         traiterMessages();
                     } else {
+                        System.out.println("Agent "+nom+" est bloqué depuis 10 itérations, mouvement aléatoire effectué");
                         bougerAleatoirement();
                         grille.print();
                     }  
                 }
             } else {
+                System.out.println("Agent "+nom+" statisfait");
                 traiterMessages();
             }
             delay++;
             try {
-                Thread.sleep(500);
+                Thread.sleep(100);
             } catch (InterruptedException ex) {
                 System.out.println(ex.getMessage());
             }

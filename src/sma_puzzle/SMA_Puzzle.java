@@ -14,10 +14,11 @@ public class SMA_Puzzle {
      */
     public static void main(String[] args) {
         //test2();
-        Grille grille = generateGrille(5,10);
+        Grille grille = generateGrille(10,10);
         grille.print();
         
         for(Agent a : grille.getListAgents()){
+            System.out.println("Agent "+a.getNom()+" position finale : ("+a.getPositionFinale().getX()+","+a.getPositionFinale().getY()+")");
             a.start();
         }
         
