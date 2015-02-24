@@ -32,11 +32,13 @@ public class Agent extends Thread {
         grille = g;
         positionFinale = pf;
         mailBox = new ArrayList<Message>();
+        msgEnvoyes = new ArrayList<Message>();
+        msgTraites = new ArrayList<Message>();
         delay=0;
     }
     
    
-    public void Run(){
+    public void run(){
         while (! grille.isTousSatisfait()) { //tant que le puzzle n'est pas reconstitué on boucle 
             //autre solution : gain individuel failbe si on est dans la bonne position et meilleur gain si tout le monde y est.
             
