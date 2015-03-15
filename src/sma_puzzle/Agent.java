@@ -39,6 +39,9 @@ public class Agent extends Thread {
         delay=0;
     }
     
+    // TODO gestion de gains et de coûts
+    // 
+    // Nb couts mini des agents ayant atteint la position 
    
     public void run(){
         while (! grille.isTousSatisfait()) { //tant que le puzzle n'est pas reconstitué on boucle 
@@ -79,6 +82,12 @@ public class Agent extends Thread {
         }
     }//run()
     
+    /**
+     * 
+     * @return prochaine position se rapprochant de son objectif
+     */
+    // TODO observation de la grille pour contourner les agents 
+    //   si aucun chemin existe, au plus cours et on envoie des messages
     private Coordonnees plusCourtChemin() {
         Coordonnees cible = (Coordonnees) position.clone();
         // TODO AMELIORATION choix de l'axe aléatoirement
