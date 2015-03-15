@@ -76,16 +76,31 @@ public class SMA_Puzzle {
             
             do{
                 cArrivee = new Coordonnees((int)((Math.random())*(taille)),(int)(Math.random()*(taille)));
-            }while(listeDestinations.contains(cArrivee));
+            }while(isInTheList(listeDestinations,cArrivee));
             
             
             Agent a = new Agent(cDepart,grille,cArrivee,""+k);
+            listeDestinations.add(cArrivee);
             grille.moveAgent(a, cDepart);
             grille.getListAgents().add(a);
             
         }
 
         return grille;
+    }
+    
+    public static boolean isInTheList(ArrayList<Coordonnees> list,Coordonnees c){
+        boolean retour = false;
+        
+        for(Coordonnees myCoor:list){
+            if(myCoor.getY() == c.getY()){
+                if(myCoor.getX() == c.getX()){
+                    retour = true;
+                }
+            }
+        }
+        
+        return retour;
     }
     
 }
