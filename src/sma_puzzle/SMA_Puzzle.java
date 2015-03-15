@@ -14,7 +14,7 @@ public class SMA_Puzzle {
      */
     public static void main(String[] args) {
         //test2();
-        Grille grille = generateGrille(10,10);
+        Grille grille = generateGrille(10,20);
         grille.print();
         
         for(Agent a : grille.getListAgents()){

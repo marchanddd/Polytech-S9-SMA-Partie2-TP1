@@ -56,8 +56,8 @@ public class Agent extends Thread {
                     grille.print();
                     delay = 0;
                 } else {
+                    delay++;
                     if(delay < 10) {
-                        // AMELIORATION : ne pas renvoyer le même message
                         Message msg = new Message(this, agentCible, Message.ACTLANGAGE.REQUEST, Message.ACTION.BOUGER, cible);
                         System.out.println("Agent " + nom + "a envoyé un message à Agent " +agentCible.getNom());
                         agentCible.recevoirMessage(msg);
@@ -73,7 +73,6 @@ public class Agent extends Thread {
                 System.out.println("Agent "+nom+" statisfait");
                 traiterMessages();
             }
-            delay++;
             try {
                 Thread.sleep(100);
             } catch (InterruptedException ex) {
@@ -90,7 +89,7 @@ public class Agent extends Thread {
     //   si aucun chemin existe, au plus cours et on envoie des messages
     private Coordonnees plusCourtChemin() {
         Coordonnees cible = (Coordonnees) position.clone();
-        // TODO AMELIORATION choix de l'axe aléatoirement
+        // choix de l'axe aléatoirement
         if (Math.random() < 0.5) {
             if (position.getX() != positionFinale.getX()) {
                 cible.setX(position.getX() + 
